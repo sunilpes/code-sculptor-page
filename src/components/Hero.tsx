@@ -1,5 +1,55 @@
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useMotionValue, animate } from "framer-motion";
 import { ArrowRight, Terminal, MapPin } from "lucide-react";
+
+const SUBTITLE =
+  "From raw event streams to actionable insight — building the infrastructure in between. 14 years across distributed systems, real-time analytics, and cloud data platforms.";
+
+function Typewriter({ text, startDelay }: { text: string; startDelay: number }) {
+  const [displayed, setDisplayed] = useState("");
+  const done = displayed.length === text.length;
+
+  useEffect(() => {
+    let i = 0;
+    const tid = setTimeout(() => {
+      const iid = setInterval(() => {
+        i++;
+        setDisplayed(text.slice(0, i));
+        if (i >= text.length) clearInterval(iid);
+      }, 18);
+      return () => clearInterval(iid);
+    }, startDelay);
+    return () => clearTimeout(tid);
+  }, [text, startDelay]);
+
+  return (
+    <>
+      {displayed}
+      {!done && (
+        <span className="ml-0.5 inline-block h-[0.85em] w-0.5 animate-pulse bg-emerald align-middle" />
+      )}
+    </>
+  );
+}
+
+function CountUp({ to, startDelay }: { to: number; startDelay: number }) {
+  const [display, setDisplay] = useState(0);
+  const motionVal = useMotionValue(0);
+
+  useEffect(() => {
+    const tid = setTimeout(() => {
+      const ctrl = animate(motionVal, to, {
+        duration: 1.5,
+        ease: "easeOut",
+        onUpdate: (v) => setDisplay(Math.floor(v)),
+      });
+      return ctrl.stop;
+    }, startDelay);
+    return () => clearTimeout(tid);
+  }, []);
+
+  return <>{display}</>;
+}
 
 export function Hero() {
   return (
@@ -31,27 +81,26 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-6 max-w-2xl text-lg text-silver-dim md:text-2xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.01, delay: 0.8 }}
+          className="mt-6 min-h-[4rem] max-w-2xl text-lg text-silver-dim md:text-2xl"
         >
-          Engineering scalable data architectures in Hamburg. Building reliable, efficient
-          pipelines from raw bytes to business insight.
+          <Typewriter text={SUBTITLE} startDelay={850} />
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
           className="mt-10 flex flex-wrap items-center gap-4"
         >
           <a
-            href="#homelab"
+            href="#milestones"
             className="group inline-flex items-center gap-2 rounded-md bg-emerald px-6 py-3 font-mono text-sm font-medium text-primary-foreground transition-all hover:glow-emerald"
           >
             <Terminal className="h-4 w-4" />
-            View Lab
+            View Career
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
           <a
@@ -62,7 +111,9 @@ export function Hero() {
           </a>
 
           <div className="ml-2 flex items-center gap-3 border-l border-border pl-6">
-            <span className="text-3xl font-semibold text-emerald">14+</span>
+            <span className="text-3xl font-semibold text-emerald">
+              <CountUp to={14} startDelay={500} />+
+            </span>
             <span className="font-mono text-xs uppercase leading-tight tracking-widest text-silver-dim">
               Years
               <br />

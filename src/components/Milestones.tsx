@@ -2,34 +2,29 @@ import { FadeIn } from "./FadeIn";
 
 const milestones = [
   {
-    year: "2011",
-    title: "Foundations in ETL",
-    body: "Began as an ETL developer — Informatica, SSIS, batch-window discipline.",
+    year: "2012",
+    title: "Software Development at Wipro",
+    body: "Started career building web applications with Groovy/Grails, AngularJS, and Oracle DB. Developed performance testing discipline with Apache JMeter.",
   },
   {
-    year: "2014",
-    title: "Big Data Era",
-    body: "Migrated to the Hadoop ecosystem — MapReduce, Hive, and the rise of YARN.",
+    year: "2015",
+    title: "Core Banking at Oracle OFSS",
+    body: "Built and enhanced core banking modules — consumer lending and accounting — in Java and Oracle. First deep exposure to high-stakes data integrity and migration tooling.",
   },
   {
-    year: "2017",
-    title: "Spark & Streaming",
-    body: "Replaced batch-first thinking with Spark and Kafka-driven near-real-time pipelines.",
+    year: "2016",
+    title: "Stream Processing & National Scale",
+    body: "Joined NIIT's StackRoute Labs to build DIKSHA, India's national education platform. Engineered a stream processing pipeline with Apache Samza handling millions of telemetry events per day. Received Excellence Award for scalable delivery.",
   },
   {
     year: "2019",
-    title: "Cloud Warehousing",
-    body: "Architected Snowflake & BigQuery platforms — separation of storage and compute.",
+    title: "Cloud Data Engineering at NewsCorp",
+    body: "Architected event-driven ingestion with Kubernetes, Docker, and Apache Beam across 15+ sources at 99.9% accuracy. Built in-warehouse transformation workflows with BigQuery and dbt.",
   },
   {
-    year: "2021",
-    title: "Modern Data Stack",
-    body: "Adopted dbt, Airflow, and DataOps — treating analytics as software.",
-  },
-  {
-    year: "2025",
-    title: "Lakehouse & Beyond",
-    body: "Designing open-table architectures (Iceberg, Delta) for unified BI + ML workloads.",
+    year: "2022",
+    title: "Real-Time Analytics at Verve Group",
+    body: "Designed a multi-region streaming analytics platform (Apache Druid + Flink + Kafka) processing 50 TB/day. Led the 500 TB AWS → GCP migration on GKE — 35% storage cost reduction, 40% faster processing.",
   },
 ];
 
@@ -45,8 +40,8 @@ export function Milestones() {
             14 years through the evolution of data.
           </h2>
           <p className="mt-4 max-w-2xl text-silver-dim">
-            From overnight ETL windows to real-time lakehouses — a journey shaped by
-            every paradigm shift in the data ecosystem.
+            From enterprise software to real-time lakehouses — a journey shaped by every
+            paradigm shift in the data ecosystem.
           </p>
         </FadeIn>
 

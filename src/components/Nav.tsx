@@ -3,8 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X, Terminal } from "lucide-react";
 
 const links = [
-  { href: "#competencies", label: "Competencies" },
-  { href: "#homelab", label: "Homelab" },
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
   { href: "#milestones", label: "Milestones" },
   { href: "#contact", label: "Contact" },
 ];
@@ -19,7 +19,7 @@ export function Nav() {
           <span className="grid h-8 w-8 place-items-center rounded-md bg-emerald/10 text-emerald">
             <Terminal className="h-4 w-4" />
           </span>
-          <span className="text-silver">sunil<span className="text-emerald">.</span>pandith</span>
+          <span className="text-silver">sunil <span className="text-emerald">pandith</span></span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
