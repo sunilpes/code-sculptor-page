@@ -3,6 +3,7 @@ import { useState, useMemo } from "react";
 import { ArrowUpRight, BookOpen, ChevronDown, Search, Terminal, X } from "lucide-react";
 import { getReadingList, getAllTags } from "@/lib/readingList";
 import type { ReadingEntry } from "@/lib/readingList";
+import { useLanguage } from "@/i18n/LanguageContext";
 import type { Language } from "@/i18n/content";
 
 export const Route = createFileRoute("/$lang/reading")({
@@ -13,6 +14,8 @@ type SortKey = "newest" | "oldest" | "az";
 
 function ReadingPage() {
   const { lang } = Route.useParams();
+  const { t } = useLanguage();
+  const r = t.reading;
   const entries = useMemo(() => getReadingList(), []);
   const allTags = useMemo(() => getAllTags(entries), [entries]);
 
@@ -85,7 +88,7 @@ function ReadingPage() {
             </span>
           </Link>
           <span className="font-mono text-xs uppercase tracking-widest text-silver-dim">
-            / reading
+            {r.breadcrumb}
           </span>
         </div>
       </header>
@@ -95,15 +98,12 @@ function ReadingPage() {
         <div className="mb-8">
           <div className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-emerald">
             <BookOpen className="h-3.5 w-3.5" />
-            <span>Reading List</span>
+            <span>{r.sectionLabel}</span>
           </div>
           <h1 className="text-2xl font-semibold tracking-tight text-silver">
-            Papers & Articles
+            {r.heading}
           </h1>
-          <p className="mt-2 text-sm text-silver-dim">
-            Distributed systems, data engineering, ML infrastructure — things I've read and
-            found worth keeping.
-          </p>
+          <p className="mt-2 text-sm text-silver-dim">{r.description}</p>
         </div>
 
         {/* Search + sort bar */}
@@ -112,7 +112,7 @@ function ReadingPage() {
             <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-silver-dim" />
             <input
               type="text"
-              placeholder="Search titles, authors, notes…"
+              placeholder={r.searchPlaceholder}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               autoCapitalize="none"
@@ -130,7 +130,7 @@ function ReadingPage() {
             )}
           </div>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-xs text-silver-dim">Sort:</span>
+            <span className="font-mono text-xs text-silver-dim">{r.sortLabel}</span>
             {(["newest", "oldest", "az"] as SortKey[]).map((s) => (
               <button
                 key={s}
@@ -141,7 +141,7 @@ function ReadingPage() {
                     : "text-silver-dim hover:text-silver"
                 }`}
               >
-                {s === "az" ? "A–Z" : s}
+                {s === "newest" ? r.sortNewest : s === "oldest" ? r.sortOldest : r.sortAz}
               </button>
             ))}
           </div>
@@ -152,7 +152,7 @@ function ReadingPage() {
           <aside className="hidden w-44 shrink-0 lg:block">
             <div className="sticky top-24 flex flex-col" style={{ maxHeight: "calc(100vh - 7rem)" }}>
               <p className="mb-3 shrink-0 font-mono text-[10px] uppercase tracking-widest text-silver-dim">
-                Topics
+                {r.topics}
               </p>
               <div className="flex flex-col gap-0.5 overflow-y-auto pr-1">
                 <button
@@ -163,7 +163,7 @@ function ReadingPage() {
                       : "text-silver-dim hover:bg-surface hover:text-silver"
                   }`}
                 >
-                  <span>All</span>
+                  <span>{r.all}</span>
                   <span className="tabular-nums">{entries.length}</span>
                 </button>
                 {allTags.map((tag) => {
@@ -197,7 +197,7 @@ function ReadingPage() {
                   : "border-border text-silver-dim"
               }`}
             >
-              All
+              {r.all}
             </button>
             {allTags.map((tag) => (
               <button
@@ -220,8 +220,8 @@ function ReadingPage() {
             <div className="mb-3 flex items-center justify-between">
               <span className="font-mono text-xs text-silver-dim">
                 {filtered.length === entries.length
-                  ? `${entries.length} entries`
-                  : `${filtered.length} of ${entries.length}`}
+                  ? r.entriesAll(entries.length)
+                  : r.entriesFiltered(filtered.length, entries.length)}
               </span>
               {hasFilters && (
                 <button
@@ -229,7 +229,7 @@ function ReadingPage() {
                   className="flex items-center gap-1 font-mono text-xs text-silver-dim hover:text-emerald"
                 >
                   <X className="h-3 w-3" />
-                  clear
+                  {r.clear}
                 </button>
               )}
             </div>
@@ -249,12 +249,12 @@ function ReadingPage() {
 
             {filtered.length === 0 && (
               <div className="py-20 text-center">
-                <p className="font-mono text-sm text-silver-dim">No results.</p>
+                <p className="font-mono text-sm text-silver-dim">{r.noResults}</p>
                 <button
                   onClick={clearFilters}
                   className="mt-3 font-mono text-xs text-emerald hover:underline"
                 >
-                  Clear filters
+                  {r.clearFilters}
                 </button>
               </div>
             )}
