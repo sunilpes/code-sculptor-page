@@ -67,7 +67,7 @@ function ReadingPage() {
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link
             to="/$lang"
             params={{ lang: lang as Language }}
@@ -93,7 +93,7 @@ function ReadingPage() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl px-6 py-12">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         {/* Page title */}
         <div className="mb-8">
           <div className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-emerald">
@@ -147,8 +147,35 @@ function ReadingPage() {
           </div>
         </div>
 
+        {/* Mobile tag strip — sits above entries, hidden on lg+ where sidebar takes over */}
+        <div className="lg:hidden -mx-4 mb-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:px-6">
+          <button
+            onClick={() => setActiveTag(null)}
+            className={`shrink-0 rounded-full border px-3 py-1 font-mono text-xs uppercase tracking-widest transition-colors ${
+              activeTag === null
+                ? "border-emerald/60 bg-emerald/10 text-emerald"
+                : "border-border text-silver-dim"
+            }`}
+          >
+            {r.all}
+          </button>
+          {allTags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setActiveTag(tag === activeTag ? null : tag)}
+              className={`shrink-0 rounded-full border px-3 py-1 font-mono text-xs uppercase tracking-widest transition-colors ${
+                activeTag === tag
+                  ? "border-emerald/60 bg-emerald/10 text-emerald"
+                  : "border-border text-silver-dim"
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+
         <div className="flex gap-8">
-          {/* Tag sidebar */}
+          {/* Tag sidebar — desktop only */}
           <aside className="hidden w-44 shrink-0 lg:block">
             <div className="sticky top-24 flex flex-col" style={{ maxHeight: "calc(100vh - 7rem)" }}>
               <p className="mb-3 shrink-0 font-mono text-[10px] uppercase tracking-widest text-silver-dim">
@@ -186,33 +213,6 @@ function ReadingPage() {
               </div>
             </div>
           </aside>
-
-          {/* Mobile tag strip */}
-          <div className="lg:hidden -mx-6 mb-4 flex gap-2 overflow-x-auto px-6 pb-1">
-            <button
-              onClick={() => setActiveTag(null)}
-              className={`shrink-0 rounded-full border px-3 py-1 font-mono text-xs uppercase tracking-widest transition-colors ${
-                activeTag === null
-                  ? "border-emerald/60 bg-emerald/10 text-emerald"
-                  : "border-border text-silver-dim"
-              }`}
-            >
-              {r.all}
-            </button>
-            {allTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-                className={`shrink-0 rounded-full border px-3 py-1 font-mono text-xs uppercase tracking-widest transition-colors ${
-                  activeTag === tag
-                    ? "border-emerald/60 bg-emerald/10 text-emerald"
-                    : "border-border text-silver-dim"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
 
           {/* Entry list */}
           <div className="min-w-0 flex-1">
