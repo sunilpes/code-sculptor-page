@@ -149,4 +149,21 @@
   .grid-fade-mask {
     mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
   }
+  .scrollbar-theme {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .scrollbar-theme::-webkit-scrollbar {
+    width: 4px;
+  }
+  .scrollbar-theme::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-theme::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 9999px;
+  }
+  .scrollbar-theme::-webkit-scrollbar-thumb:hover {
+    background-color: var(--silver-dim);
+  }
 }

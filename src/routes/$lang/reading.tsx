@@ -181,7 +181,7 @@ function ReadingPage() {
               <p className="mb-3 shrink-0 font-mono text-[10px] uppercase tracking-widest text-silver-dim">
                 {r.topics}
               </p>
-              <div className="flex flex-col gap-0.5 overflow-y-auto pr-1">
+              <div className="scrollbar-theme flex flex-col gap-0.5 overflow-y-auto pr-1">
                 <button
                   onClick={() => setActiveTag(null)}
                   className={`flex items-center justify-between rounded px-2 py-1.5 text-left font-mono text-xs transition-colors ${
