@@ -149,6 +149,12 @@
   .grid-fade-mask {
     mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
   }
+  .scrollbar-hide {
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
   .scrollbar-theme {
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;

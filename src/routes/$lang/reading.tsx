@@ -148,7 +148,7 @@ function ReadingPage() {
         </div>
 
         {/* Mobile tag strip — sits above entries, hidden on lg+ where sidebar takes over */}
-        <div className="lg:hidden -mx-4 mb-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:px-6">
+        <div className="lg:hidden mb-4 flex flex-wrap gap-2">
           <button
             onClick={() => setActiveTag(null)}
             className={`shrink-0 rounded-full border px-3 py-1 font-mono text-xs uppercase tracking-widest transition-colors ${
@@ -304,7 +304,7 @@ function EntryRow({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1.5 font-mono text-sm font-medium text-silver hover:text-emerald"
+                className="flex min-w-0 items-center gap-1.5 font-mono text-sm font-medium text-silver hover:text-emerald"
               >
                 <span className="truncate">{entry.title}</span>
                 <ArrowUpRight className="h-3 w-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-60" />
